@@ -13,10 +13,7 @@ import kotlinx.coroutines.flow.stateIn
  * A [StateFlow] exposing a [save] method.
  */
 @OptIn(ExperimentalForInheritanceCoroutinesApi::class)
-class DataStoreStateFlow<V>(
-    stateFlow: StateFlow<V>,
-    val save: suspend (V) -> Unit
-) : StateFlow<V> by stateFlow {
+class DataStoreStateFlow<V>(stateFlow: StateFlow<V>, val save: suspend (V) -> Unit) : StateFlow<V> by stateFlow {
 
     constructor(
         flow: Flow<V>,

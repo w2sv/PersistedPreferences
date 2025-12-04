@@ -6,8 +6,7 @@ class DataStoreStateFlowMap<K, V>(
     map: Map<K, StateFlow<V>>,
     private val keyToDse: Map<K, DataStoreEntry.UniType<V>>,
     private val saveEntry: suspend (DataStoreEntry.UniType<V>, V) -> Unit
-) :
-    Map<K, StateFlow<V>> by map {
+) : Map<K, StateFlow<V>> by map {
 
     suspend fun save(map: Map<K, V>) {
         map.forEach { (k, v) ->

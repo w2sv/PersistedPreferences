@@ -20,9 +20,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import slimber.log.i
 
-abstract class PreferencesDataStoreRepository(
-    val dataStore: DataStore<Preferences>
-) {
+abstract class PreferencesDataStoreRepository(val dataStore: DataStore<Preferences>) {
     // ================
     // Plain values
     // ================

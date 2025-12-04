@@ -10,8 +10,7 @@ class DataStoreFlowMap<K, V>(
     map: Map<K, Flow<V>>,
     private val keyToDse: Map<K, DataStoreEntry.UniType<V>>,
     private val saveEntry: suspend (DataStoreEntry.UniType<V>, V) -> Unit
-) :
-    Map<K, Flow<V>> by map {
+) : Map<K, Flow<V>> by map {
 
     /**
      * Converts values to [StateFlow]s with [DataStoreEntry] default values.
