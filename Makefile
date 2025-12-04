@@ -2,11 +2,14 @@ SHELL=/bin/bash
 
 VERSION := $(shell grep -Po '^version=\K.*' gradle.properties)
 
-format:
-	@./gradlew ktlintFormat
+update-gradle:
+	@./gradlew wrapper --gradle-version latest
 
 update-dependencies:
 	@./gradlew versionCatalogUpdate
+
+format:
+	@./gradlew ktlintFormat
 
 publish:
 	@echo "###### Assembling & running checks ######"
