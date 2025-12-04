@@ -3,6 +3,7 @@
 package com.w2sv.datastoreutils.datastoreflow
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalForInheritanceCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 /**
  * A [StateFlow] exposing a [save] method.
  */
+@OptIn(ExperimentalForInheritanceCoroutinesApi::class)
 class DataStoreStateFlow<V>(
     stateFlow: StateFlow<V>,
     val save: suspend (V) -> Unit

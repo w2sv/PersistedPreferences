@@ -5,10 +5,6 @@ plugins {
     `maven-publish`
 }
 
-kotlin {
-    jvmToolchain(libs.versions.java.get().toInt())
-}
-
 android {
     namespace = "com.w2sv.datastoreutils.preferences"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -23,8 +19,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 //    @Suppress("UnstableApiUsage")
 //    testOptions {

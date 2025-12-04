@@ -2,8 +2,6 @@
 agp = "8.13.1"
 # @keep
 compileSdk = "36"
-# @keep
-java = "17"
 kotlin = "2.2.21"
 kotlinx-coroutines = "1.10.2"
 ktlint = "14.0.1"
@@ -16,7 +14,7 @@ androidx-datastore-preferences = "androidx.datastore:datastore-preferences:1.2.0
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 slimber = "com.github.PaulWoitaschek:Slimber:2.0.0"
-w2sv-kotlinutils = "com.github.w2sv:KotlinUtils:0.1.9"
+w2sv-kotlinutils = "com.github.w2sv:KotlinUtils:0.1.11"
 
 [plugins]
 android-library = { id = "com.android.library", version.ref = "agp" }

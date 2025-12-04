@@ -5,7 +5,7 @@ plugins {
 }
 
 kotlin {
-    jvmToolchain(libs.versions.java.get().toInt())
+    jvmToolchain(11)
 }
 
 publishing {
