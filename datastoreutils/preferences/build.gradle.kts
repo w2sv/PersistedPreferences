@@ -5,6 +5,10 @@ plugins {
     `maven-publish`
 }
 
+kotlin {
+    jvmToolchain(11)
+}
+
 android {
     namespace = "com.w2sv.datastoreutils.preferences"
     compileSdk = libs.versions.compileSdk.get().toInt()
