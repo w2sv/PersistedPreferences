@@ -8,7 +8,7 @@ plugins {
 kotlin { jvmToolchain(Versions.kotlinJvmToolchain) }
 
 android {
-    namespace = "com.w2sv.${path.removePrefix(":").replace(':', '.')}"
+    namespace = "com.w2sv.${path.removePrefix(":").replace(':', '.').replace('-', '.')}"
     compileSdk = Versions.compileSdk
 
     defaultConfig {

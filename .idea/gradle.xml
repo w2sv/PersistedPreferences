@@ -22,9 +22,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/build-logic" />
-            <option value="$PROJECT_DIR$/datastoreutils" />
-            <option value="$PROJECT_DIR$/datastoreutils/datastoreflow" />
-            <option value="$PROJECT_DIR$/datastoreutils/preferences" />
+            <option value="$PROJECT_DIR$/datastoreutils-datastoreflow" />
+            <option value="$PROJECT_DIR$/datastoreutils-preferences" />
           </set>
         </option>
       </GradleProjectSettings>

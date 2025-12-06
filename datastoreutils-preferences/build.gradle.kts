@@ -15,7 +15,7 @@ publishing {
 }
 
 dependencies {
-    api(project(":datastoreutils:datastoreflow"))
+    api(projects.datastoreutilsDatastoreflow)
     api(libs.androidx.datastore.preferences)
     implementation(libs.slimber)
     implementation(libs.w2sv.kotlinutils)

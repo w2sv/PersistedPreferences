@@ -17,5 +17,7 @@ dependencyResolutionManagement {
     }
 }
 
-include(":datastoreutils:datastoreflow")
-include(":datastoreutils:preferences")
+rootProject.name = "datastoreutils"
+
+include(":datastoreutils-datastoreflow")
+include(":datastoreutils-preferences")
