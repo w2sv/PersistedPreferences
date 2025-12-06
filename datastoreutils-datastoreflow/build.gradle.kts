@@ -1,17 +1,6 @@
 plugins {
     id("w2sv.jvm-kotlin-library")
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("mavenJava") {
-            groupId = "com.w2sv.datastoreutils"
-            artifactId = "datastoreflow"
-            afterEvaluate {
-                from(components["java"])
-            }
-        }
-    }
+    id("w2sv.maven-publish-convention")
 }
 
 dependencies {

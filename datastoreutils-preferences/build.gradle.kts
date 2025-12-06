@@ -1,17 +1,6 @@
 plugins {
     id("w2sv.android-library")
-}
-
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.w2sv.datastoreutils"
-            artifactId = "preferences"
-            afterEvaluate {
-                from(components["release"])
-            }
-        }
-    }
+    id("w2sv.maven-publish-convention")
 }
 
 dependencies {

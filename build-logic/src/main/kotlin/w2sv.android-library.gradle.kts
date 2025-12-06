@@ -2,7 +2,6 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("org.jlleitschuh.gradle.ktlint")
-    `maven-publish`
 }
 
 kotlin { jvmToolchain(Versions.kotlinJvmToolchain) }
@@ -31,6 +30,15 @@ android {
             isIncludeAndroidResources = true
             isReturnDefaultValues = true
             all { test -> test.failOnNoDiscoveredTests = false }
+        }
+    }
+
+    // unit test tasks for some reason need minSdk=23
+    sourceSets {
+        getByName("test") {
+            defaultConfig {
+                minSdk = 23
+            }
         }
     }
 
