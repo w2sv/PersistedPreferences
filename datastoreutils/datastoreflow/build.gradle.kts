@@ -1,11 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.ktlint)
-    `maven-publish`
-}
-
-kotlin {
-    jvmToolchain(11)
+    id("w2sv.jvm-kotlin-library")
 }
 
 publishing {

@@ -1,12 +1,8 @@
 [versions]
 agp = "8.13.1"
-# @keep
-compileSdk = "36"
 kotlin = "2.2.21"
 kotlinx-coroutines = "1.10.2"
 ktlint = "14.0.1"
-# @keep
-minSdk = "21"
 versionCatalogUpdate = "1.0.1"
 
 [libraries]
