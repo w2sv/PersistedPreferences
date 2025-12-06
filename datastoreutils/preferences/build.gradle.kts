@@ -20,5 +20,4 @@ dependencies {
     implementation(libs.slimber)
     implementation(libs.w2sv.kotlinutils)
     implementation(libs.kotlinx.coroutines.android)
-//    testImplementation(libs.junit)
 }
