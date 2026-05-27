@@ -1,17 +1,22 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
     id("org.jlleitschuh.gradle.ktlint")
 }
 
-kotlin { jvmToolchain(Versions.kotlinJvmToolchain) }
+kotlin {
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_11)
+    }
+}
 
 android {
     namespace = "com.w2sv.${path.removePrefix(":").replace(':', '.').replace('-', '.')}"
-    compileSdk = Versions.compileSdk
+    compileSdk = 37
 
     defaultConfig {
-        minSdk = Versions.minSdk
+        minSdk = 21
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,6 +46,4 @@ android {
             }
         }
     }
-
-    publishing { singleVariant("release") { withSourcesJar() } }
 }

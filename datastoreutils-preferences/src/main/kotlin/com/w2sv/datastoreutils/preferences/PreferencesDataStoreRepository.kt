@@ -18,9 +18,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import slimber.log.i
 
-abstract class PreferencesDataStoreRepository(val dataStore: DataStore<Preferences>) {
+abstract class PreferencesDataStoreRepository(val dataStore: DataStore<Preferences>, private val log: (() -> String) -> Unit) {
     // ================
     // Plain values
     // ================
@@ -259,15 +258,15 @@ abstract class PreferencesDataStoreRepository(val dataStore: DataStore<Preferenc
             flow = getLocalDateTimeFlow(key, default),
             save = { saveStringRepresentation(key, it) }
         )
+
+    private fun <T> MutablePreferences.save(preferencesKey: Preferences.Key<T>, value: T) {
+        this[preferencesKey] = value
+        log { "Saved ${preferencesKey.name}=$value" }
+    }
+
+    private fun MutablePreferences.saveStringRepresentation(preferencesKey: Preferences.Key<String>, value: Any?) {
+        save(preferencesKey, value?.toString() ?: DEFAULT_STRING_VALUE)
+    }
 }
 
 private const val DEFAULT_STRING_VALUE = ""
-
-private fun <T> MutablePreferences.save(preferencesKey: Preferences.Key<T>, value: T) {
-    this[preferencesKey] = value
-    i { "Saved ${preferencesKey.name}=$value" }
-}
-
-private fun MutablePreferences.saveStringRepresentation(preferencesKey: Preferences.Key<String>, value: Any?) {
-    save(preferencesKey, value?.toString() ?: DEFAULT_STRING_VALUE)
-}

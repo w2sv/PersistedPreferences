@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
     implementation(plugin(libs.plugins.android.library))
-    implementation(plugin(libs.plugins.kotlin.android))
+    implementation(plugin(libs.plugins.kotlin.jvm))
     implementation(plugin(libs.plugins.ktlint))
 }
 
