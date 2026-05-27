@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     id("com.android.library")
     id("org.jlleitschuh.gradle.ktlint")
+    id("w2sv.publishing")
 }
 
 kotlin {

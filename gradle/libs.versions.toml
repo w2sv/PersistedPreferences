@@ -17,4 +17,5 @@ w2sv-kotlinutils-coroutines = { module = "io.github.w2sv:kotlinutils-coroutines"
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+vanniktech-maven-publish = "com.vanniktech.maven.publish:0.36.0"
 versionCatalogUpdate = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }

@@ -7,6 +7,7 @@ dependencies {
     implementation(plugin(libs.plugins.android.library))
     implementation(plugin(libs.plugins.kotlin.jvm))
     implementation(plugin(libs.plugins.ktlint))
+    implementation(plugin(libs.plugins.vanniktech.maven.publish))
 }
 
 private fun plugin(dependency: Provider<PluginDependency>): Provider<String> =
