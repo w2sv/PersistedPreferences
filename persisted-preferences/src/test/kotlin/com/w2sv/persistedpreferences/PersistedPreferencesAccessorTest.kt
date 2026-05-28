@@ -21,7 +21,6 @@ import org.junit.Test
 class PersistedPreferencesAccessorTest {
 
     private lateinit var tempDir: Path
-
     private lateinit var scope: CoroutineScope
     private lateinit var accessor: PersistedPreferencesAccessor
 
@@ -50,11 +49,9 @@ class PersistedPreferencesAccessorTest {
                 key = booleanPreferencesKey("primitive"),
                 default = { false }
             )
-
             assertEquals(false, preference.flow.first())
 
             preference.save(true)
-
             assertEquals(true, preference.flow.first())
         }
 
@@ -65,13 +62,10 @@ class PersistedPreferencesAccessorTest {
                 key = booleanPreferencesKey("state_flow"),
                 default = { true }
             )
-
             val state = preference.stateIn(backgroundScope)
-
             assertEquals(true, state.value)
 
             preference.save(false)
-
             assertEquals(false, state.first { !it })
         }
 
@@ -83,15 +77,12 @@ class PersistedPreferencesAccessorTest {
                 default = { "default" },
                 nullSavable = "<NULL>"
             )
-
             assertEquals("default", preference.flow.first())
 
             preference.save("saved")
-
             assertEquals("saved", preference.flow.first())
 
             preference.save(null)
-
             assertEquals(null, preference.flow.first())
         }
 
@@ -103,11 +94,9 @@ class PersistedPreferencesAccessorTest {
                 default = { "<NULL>" },
                 nullSavable = "<NULL>"
             )
-
             assertEquals("<NULL>", preference.flow.first())
 
             preference.save(null)
-
             assertEquals(null, preference.flow.first())
         }
 
@@ -119,11 +108,9 @@ class PersistedPreferencesAccessorTest {
                 default = { TestEnum.First },
                 savePolicy = EnumSavePolicy.byOrdinal()
             )
-
             assertEquals(TestEnum.First, preference.flow.first())
 
             preference.save(TestEnum.Third)
-
             assertEquals(TestEnum.Third, preference.flow.first())
         }
 
@@ -135,11 +122,9 @@ class PersistedPreferencesAccessorTest {
                 default = { TestEnum.First },
                 savePolicy = EnumSavePolicy.byName()
             )
-
             assertEquals(TestEnum.First, preference.flow.first())
 
             preference.save(TestEnum.Second)
-
             assertEquals(TestEnum.Second, preference.flow.first())
         }
 
@@ -156,11 +141,9 @@ class PersistedPreferencesAccessorTest {
                     }
                 )
             )
-
             assertEquals(TestEnum.First, preference.flow.first())
 
             preference.save(TestEnum.Third)
-
             assertEquals(TestEnum.Third, preference.flow.first())
         }
 
@@ -174,15 +157,12 @@ class PersistedPreferencesAccessorTest {
                 default = { TestEnum.First },
                 savePolicy = EnumSavePolicy.byOrdinal()
             )
-
             assertEquals(TestEnum.First, preference.flow.first())
 
             preference.save(TestEnum.Third)
-
             assertEquals(TestEnum.Third, preference.flow.first())
 
             preference.save(null)
-
             assertEquals(null, preference.flow.first())
         }
 
@@ -194,15 +174,12 @@ class PersistedPreferencesAccessorTest {
                 default = { null },
                 savePolicy = EnumSavePolicy.byName<TestEnum>()
             )
-
             assertEquals(null, preference.flow.first())
 
             preference.save(TestEnum.Second)
-
             assertEquals(TestEnum.Second, preference.flow.first())
 
             preference.save(null)
-
             assertEquals(null, preference.flow.first())
         }
 
@@ -213,11 +190,9 @@ class PersistedPreferencesAccessorTest {
                 keyName = "uri",
                 default = { null }
             )
-
             assertEquals(null, preference.flow.first())
 
             preference.save(null)
-
             assertEquals(null, preference.flow.first())
         }
 
@@ -229,11 +204,9 @@ class PersistedPreferencesAccessorTest {
                 keyName = "local_date_time",
                 default = { null }
             )
-
             assertEquals(null, preference.flow.first())
 
             preference.save(saved)
-
             assertEquals(saved, preference.flow.first())
         }
 
@@ -246,11 +219,9 @@ class PersistedPreferencesAccessorTest {
                 serialize = { it.joinToString(separator = "|") },
                 deserialize = { if (it.isEmpty()) emptyList() else it.split("|") }
             )
-
             assertEquals(emptyList<String>(), preference.flow.first())
 
             preference.save(listOf("one", "two"))
-
             assertEquals(listOf("one", "two"), preference.flow.first())
         }
 
@@ -264,11 +235,9 @@ class PersistedPreferencesAccessorTest {
                 serializeElement = Int::toString,
                 deserializeElement = String::toInt
             )
-
             assertEquals(emptyList<Int>(), preference.flow.first())
 
             preference.save(listOf(1, 2, 3))
-
             assertEquals(listOf(1, 2, 3), preference.flow.first())
         }
 
@@ -281,11 +250,9 @@ class PersistedPreferencesAccessorTest {
                 toSavable = String::length,
                 toExternal = { "length=$it" }
             )
-
             assertEquals("length=4", preference.flow.first())
 
             preference.save("abcdef")
-
             assertEquals("length=6", preference.flow.first())
         }
 }
