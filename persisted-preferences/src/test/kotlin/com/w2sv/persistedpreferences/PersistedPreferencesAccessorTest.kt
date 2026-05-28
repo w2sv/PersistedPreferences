@@ -59,6 +59,23 @@ class PersistedPreferencesAccessorTest {
         }
 
     @Test
+    fun `stateIn uses preference default as initial value`() =
+        runTest {
+            val preference = accessor.persistedPreference(
+                key = booleanPreferencesKey("state_flow"),
+                default = { true }
+            )
+
+            val state = preference.stateIn(backgroundScope)
+
+            assertEquals(true, state.value)
+
+            preference.save(false)
+
+            assertEquals(false, state.first { !it })
+        }
+
+    @Test
     fun `nullablePreference saves and reads nullable value`() =
         runTest {
             val preference = accessor.nullablePreference(

@@ -43,7 +43,8 @@ dependencies {
 
 `PersistedPreference<T>` keeps the read and write side of a preference together: consumers collect `flow` to observe
 changes and call `save(value)` to persist updates. This keeps repository APIs small and typed without exposing
-`DataStore`, keys, serialization details, or separate setter methods.
+`DataStore`, keys, serialization details, or separate setter methods. It can also create a `StateFlow` with
+`stateIn(scope)` using the same default value that was supplied when the preference was defined.
 
 Create an accessor from your `DataStore<Preferences>`:
 
