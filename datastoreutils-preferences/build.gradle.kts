@@ -3,8 +3,9 @@ plugins {
 }
 
 dependencies {
-    api(projects.datastoreutilsDatastoreflow)
     api(libs.androidx.datastore.preferences)
     implementation(libs.w2sv.kotlinutils.core)
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
