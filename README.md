@@ -1,5 +1,6 @@
 # PersistedPreferences
 
+![Maven Central Version](https://img.shields.io/maven-central/v/io.github.w2sv/persisted-preferences)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/w2sv/PersistedPreferences?include_prereleases)
 [![Build](https://github.com/w2sv/PersistedPreferences/actions/workflows/workflow.yaml/badge.svg)](https://github.com/w2sv/PersistedPreferences/actions/workflows/workflow.yaml)
 ![GitHub](https://img.shields.io/github/license/w2sv/PersistedPreferences)
