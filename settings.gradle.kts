@@ -16,6 +16,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "datastoreutils"
+rootProject.name = "persistedpreferences"
 
-include(":datastoreutils-preferences")
+include(":persisted-preferences")

@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.w2sv.datastoreutils.preferences
+package com.w2sv.persistedpreferences
 
 import android.net.Uri
 import android.os.Build
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.map
  * Use it directly as an injected dependency, or subclass it from a repository implementation that wants to expose
  * concrete preference properties.
  */
-open class PreferencesDataStoreAccessor(private val dataStore: DataStore<Preferences>, private val log: (() -> String) -> Unit = {}) {
+open class PersistedPreferencesAccessor(private val dataStore: DataStore<Preferences>, private val log: (() -> String) -> Unit = {}) {
 
     // ============
     // Primitives

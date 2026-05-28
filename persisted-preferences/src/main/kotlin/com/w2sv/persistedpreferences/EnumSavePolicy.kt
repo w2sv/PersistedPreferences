@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.w2sv.datastoreutils.preferences
+package com.w2sv.persistedpreferences
 
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.intPreferencesKey
@@ -38,7 +38,7 @@ class EnumSavePolicy<E : Enum<E>, Savable> private constructor(
          * Stores enum entries by their ordinal.
          */
         inline fun <reified E : Enum<E>> byOrdinal(): EnumSavePolicy<E, Int> =
-            byCustomInt(
+            byInt(
                 toSavable = { it.ordinal },
                 toExternal = { ordinal, default ->
                     if (ordinal == -1) {
@@ -58,7 +58,7 @@ class EnumSavePolicy<E : Enum<E>, Savable> private constructor(
          * Stores enum entries by their name.
          */
         inline fun <reified E : Enum<E>> byName(): EnumSavePolicy<E, String> =
-            byCustomString(
+            byString(
                 toSavable = { it.name },
                 toExternal = { name, default ->
                     if (name.isEmpty()) {
@@ -73,7 +73,7 @@ class EnumSavePolicy<E : Enum<E>, Savable> private constructor(
         /**
          * Stores enum entries as custom Int values.
          */
-        fun <E : Enum<E>> byCustomInt(
+        fun <E : Enum<E>> byInt(
             toSavable: (E) -> Int,
             toExternal: (Int, default: () -> E?) -> E?,
             nullSavable: Int? = null
@@ -88,7 +88,7 @@ class EnumSavePolicy<E : Enum<E>, Savable> private constructor(
         /**
          * Stores enum entries as custom String values.
          */
-        fun <E : Enum<E>> byCustomString(
+        fun <E : Enum<E>> byString(
             toSavable: (E) -> String,
             toExternal: (String, default: () -> E?) -> E?,
             nullSavable: String? = null

@@ -22,7 +22,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/build-logic" />
-            <option value="$PROJECT_DIR$/datastoreutils-preferences" />
+            <option value="$PROJECT_DIR$/persisted-preferences" />
           </set>
         </option>
       </GradleProjectSettings>

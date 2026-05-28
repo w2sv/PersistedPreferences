@@ -1,4 +1,4 @@
-package com.w2sv.datastoreutils.preferences
+package com.w2sv.persistedpreferences
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -18,18 +18,18 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class PreferencesDataStoreAccessorTest {
+class PersistedPreferencesAccessorTest {
 
     private lateinit var tempDir: Path
 
     private lateinit var scope: CoroutineScope
-    private lateinit var accessor: PreferencesDataStoreAccessor
+    private lateinit var accessor: PersistedPreferencesAccessor
 
     @Before
     fun setUp() {
         tempDir = createTempDirectory()
         scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        accessor = PreferencesDataStoreAccessor(
+        accessor = PersistedPreferencesAccessor(
             PreferenceDataStoreFactory.create(
                 scope = scope,
                 produceFile = { tempDir.resolve("test.preferences_pb").toFile() }
@@ -132,7 +132,7 @@ class PreferencesDataStoreAccessorTest {
             val preference = accessor.enumPreference(
                 keyName = "custom_string_enum",
                 default = { TestEnum.First },
-                savePolicy = EnumSavePolicy.byCustomString(
+                savePolicy = EnumSavePolicy.byString(
                     toSavable = { it.customValue },
                     toExternal = { customValue, _ ->
                         TestEnum.entries.first { it.customValue == customValue }

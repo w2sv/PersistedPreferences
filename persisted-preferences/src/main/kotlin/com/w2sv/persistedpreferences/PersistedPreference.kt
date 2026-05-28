@@ -1,6 +1,6 @@
 @file:Suppress("unused")
 
-package com.w2sv.datastoreutils.preferences
+package com.w2sv.persistedpreferences
 
 import kotlinx.coroutines.flow.Flow
 

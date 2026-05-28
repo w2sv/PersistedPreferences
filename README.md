@@ -1,8 +1,8 @@
-# DataStoreUtils
+# PersistedPreferences
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/w2sv/DataStoreUtils?include_prereleases)
-[![Build](https://github.com/w2sv/DataStoreUtils/actions/workflows/workflow.yaml/badge.svg)](https://github.com/w2sv/DataStoreUtils/actions/workflows/workflow.yaml)
-![GitHub](https://img.shields.io/github/license/w2sv/DataStoreUtils)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/w2sv/PersistedPreferences?include_prereleases)
+[![Build](https://github.com/w2sv/PersistedPreferences/actions/workflows/workflow.yaml/badge.svg)](https://github.com/w2sv/PersistedPreferences/actions/workflows/workflow.yaml)
+![GitHub](https://img.shields.io/github/license/w2sv/PersistedPreferences)
 
 A small set of utilities for exposing Preferences DataStore values as typed flows and persisted preference handles.
 
@@ -12,7 +12,7 @@ A small set of utilities for exposing Preferences DataStore values as typed flow
 
 ```kotlin
 dependencies {
-    implementation("io.github.w2sv:datastoreutils-preferences:<version>")
+    implementation("io.github.w2sv:persisted-preferences:<version>")
 }
 ```
 
@@ -22,17 +22,17 @@ dependencies {
 
 ```toml
 [versions]
-w2sv-datastoreutils = "<version>"
+w2sv-persisted-preferences = "<version>"
 
 [libraries]
-w2sv-datastoreutils-preferences = { module = "io.github.w2sv:datastoreutils-preferences", version.ref = "w2sv-datastoreutils" }
+w2sv-persisted-preferences = { module = "io.github.w2sv:persisted-preferences", version.ref = "w2sv-persisted-preferences" }
 ```
 
 **build.gradle.kts:**
 
 ```kotlin
 dependencies {
-    implementation(libs.w2sv.datastoreutils.preferences)
+    implementation(libs.w2sv.persisted.preferences)
 }
 ```
 
@@ -47,13 +47,13 @@ changes and call `save(value)` to persist updates. This keeps repository APIs sm
 Create an accessor from your `DataStore<Preferences>`:
 
 ```kotlin
-val accessor = PreferencesDataStoreAccessor(dataStore)
+val accessor = PersistedPreferencesAccessor(dataStore)
 ```
 
 Expose concrete preferences from a repository:
 
 ```kotlin
-class PreferencesRepository(preferences: PreferencesDataStoreAccessor) {
+class PreferencesRepository(preferences: PersistedPreferencesAccessor) {
     val launchCount = preferences.persistedPreference(
         key = intPreferencesKey("launch_count"),
         default = { 0 }
@@ -72,7 +72,7 @@ You can also subclass the accessor:
 ```kotlin
 class PreferencesRepository(
     dataStore: DataStore<Preferences>
-) : PreferencesDataStoreAccessor(dataStore) {
+) : PersistedPreferencesAccessor(dataStore) {
     val theme = enumPreference(
         keyName = "theme",
         default = { Theme.System },
@@ -97,7 +97,7 @@ Custom enum storage is supported through `EnumSavePolicy`:
 val theme = preferences.enumPreference(
     keyName = "theme",
     default = { Theme.System },
-    savePolicy = EnumSavePolicy.byCustomString(
+    savePolicy = EnumSavePolicy.byString(
         toSavable = { it.id },
         toExternal = { id, default -> Theme.entries.firstOrNull { it.id == id } ?: default() }
     )
