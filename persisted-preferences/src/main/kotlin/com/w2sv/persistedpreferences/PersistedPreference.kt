@@ -2,6 +2,7 @@
 
 package com.w2sv.persistedpreferences
 
+import androidx.datastore.preferences.core.MutablePreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 /**
  * A persisted preference value that can be observed through [flow], converted to a [StateFlow], and updated through [save].
  */
-class PersistedPreference<T>(
+class PersistedPreference<T> internal constructor(
     /**
      * Emits the current preference value and later updates.
      */
@@ -22,7 +23,8 @@ class PersistedPreference<T>(
      */
     val save: suspend (T) -> Unit,
 
-    private val default: () -> T
+    private val default: () -> T,
+    internal val saveTo: (MutablePreferences, T) -> Unit
 ) {
     /**
      * Converts [flow] into a [StateFlow] using this preference's configured default as the initial value.

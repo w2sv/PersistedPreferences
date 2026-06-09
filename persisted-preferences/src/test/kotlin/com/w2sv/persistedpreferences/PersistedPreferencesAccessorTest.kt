@@ -1,6 +1,8 @@
 package com.w2sv.persistedpreferences
 
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -10,8 +12,12 @@ import kotlin.io.path.createTempDirectory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -22,18 +28,18 @@ class PersistedPreferencesAccessorTest {
 
     private lateinit var tempDir: Path
     private lateinit var scope: CoroutineScope
+    private lateinit var dataStore: DataStore<Preferences>
     private lateinit var accessor: PersistedPreferencesAccessor
 
     @Before
     fun setUp() {
         tempDir = createTempDirectory()
         scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-        accessor = PersistedPreferencesAccessor(
-            PreferenceDataStoreFactory.create(
-                scope = scope,
-                produceFile = { tempDir.resolve("test.preferences_pb").toFile() }
-            )
+        dataStore = PreferenceDataStoreFactory.create(
+            scope = scope,
+            produceFile = { tempDir.resolve("test.preferences_pb").toFile() }
         )
+        accessor = PersistedPreferencesAccessor(dataStore)
     }
 
     @After
@@ -53,6 +59,31 @@ class PersistedPreferencesAccessorTest {
 
             preference.save(true)
             assertEquals(true, preference.flow.first())
+        }
+
+    @Test
+    fun `edit saves multiple typed preferences in one data store update`() =
+        runTest {
+            val primitive = accessor.persistedPreference(
+                key = booleanPreferencesKey("transaction_primitive"),
+                default = { false }
+            )
+            val enum = accessor.enumPreference(
+                keyName = "transaction_enum",
+                default = { TestEnum.First },
+                savePolicy = EnumSavePolicy.byName()
+            )
+            val emissions = async { dataStore.data.take(2).toList() }
+            runCurrent()
+
+            accessor.edit {
+                primitive setTo true
+                enum setTo TestEnum.Third
+            }
+
+            assertEquals(2, emissions.await().size)
+            assertEquals(true, primitive.flow.first())
+            assertEquals(TestEnum.Third, enum.flow.first())
         }
 
     @Test

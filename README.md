@@ -106,6 +106,15 @@ val theme = preferences.enumPreference(
 )
 ```
 
+Persist multiple typed preferences atomically with one DataStore transaction:
+
+```kotlin
+preferences.edit {
+    launchCount setTo 1
+    theme setTo Theme.Dark
+}
+```
+
 ## 📄 License
 
 Licensed under the Apache License 2.0.

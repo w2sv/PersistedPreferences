@@ -35,7 +35,8 @@ open class PersistedPreferencesAccessor(private val dataStore: DataStore<Prefere
         PersistedPreference(
             flow = flow(key, default),
             save = { save(key, it) },
-            default = default
+            default = default,
+            saveTo = { preferences, value -> preferences.save(key, value) }
         )
 
     /**
@@ -57,7 +58,8 @@ open class PersistedPreferencesAccessor(private val dataStore: DataStore<Prefere
                 }
             },
             save = { save(key, it ?: nullSavable) },
-            default = default
+            default = default,
+            saveTo = { preferences, value -> preferences.save(key, value ?: nullSavable) }
         )
 
     // ============
@@ -123,7 +125,14 @@ open class PersistedPreferencesAccessor(private val dataStore: DataStore<Prefere
                     save(key, savePolicy.toSavable(it))
                 }
             },
-            default = default
+            default = default,
+            saveTo = { preferences, value ->
+                if (value == null && savePolicy.nullSavable == null) {
+                    preferences.remove(key)
+                } else {
+                    preferences.save(key, value?.let(savePolicy.toSavable) ?: savePolicy.nullSavable!!)
+                }
+            }
         )
 
     /**
@@ -162,7 +171,8 @@ open class PersistedPreferencesAccessor(private val dataStore: DataStore<Prefere
         PersistedPreference(
             flow = uriFlow(key, default),
             save = { saveAsString(key, it) },
-            default = default
+            default = default,
+            saveTo = { preferences, value -> preferences.save(key, value?.toString() ?: DEFAULT_STRING) }
         )
 
     /**
@@ -191,7 +201,8 @@ open class PersistedPreferencesAccessor(private val dataStore: DataStore<Prefere
         PersistedPreference(
             flow = localDateTimeFlow(key, default),
             save = { saveAsString(key, it) },
-            default = default
+            default = default,
+            saveTo = { preferences, value -> preferences.save(key, value?.toString() ?: DEFAULT_STRING) }
         )
 
     /**
@@ -290,8 +301,18 @@ open class PersistedPreferencesAccessor(private val dataStore: DataStore<Prefere
         PersistedPreference(
             flow = flow(key) { toSavable(default()) }.map(toExternal),
             save = { save(key, toSavable(it)) },
-            default = default
+            default = default,
+            saveTo = { preferences, value -> preferences.save(key, toSavable(value)) }
         )
+
+    /**
+     * Atomically persists all typed preference updates staged in [block].
+     */
+    suspend fun edit(block: PersistedPreferencesEditor.() -> Unit) {
+        dataStore.edit { preferences ->
+            PersistedPreferencesEditor(preferences).block()
+        }
+    }
 
     // ================
     // Internal Helpers
