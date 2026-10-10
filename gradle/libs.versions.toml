@@ -3,7 +3,7 @@ agp = "9.2.1"
 kotlin = "2.4.0"
 kotlinx-coroutines = "1.11.0"
 ktlint = "14.2.0"
-versionCatalogUpdate = "1.1.0"
+versionCatalogUpdate = "1.1.1"
 w2sv-kotlinutils = "1.0.0"
 
 [libraries]
